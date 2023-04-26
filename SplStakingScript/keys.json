@@ -1,0 +1,20 @@
+{
+"accMainName": "",
+"accMainPostingKey": "",
+"accMainActiveKey": "",
+"acc2Name": "",
+"acc2PostingKey": "",
+"acc2ActiveKey": "",
+"acc3Name": "",
+"acc3PostingKey": "",
+"acc3ActiveKey": "",
+"acc4Name": "",
+"acc4PostingKey": "",
+"acc4ActiveKey": "",
+"autoGLXClaimTime": "10",
+"autoGLXStakeTime": "10",
+"autoGLXClaimStakedRewards": "True",
+"autoGLXClaimPackRewards": "True",
+"autoGLXClaimNodeRewards": "False",
+"autoGLXClaimSPSStakedRewards": "False"
+}
