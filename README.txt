@@ -1,4 +1,6 @@
 # HiveInteractiveMenu
+Startup file should be HiveInteractiveMenu.py
+
 Very little error catching in place at the moment
 
 accounts and keys need to be added to keys.json file to work
