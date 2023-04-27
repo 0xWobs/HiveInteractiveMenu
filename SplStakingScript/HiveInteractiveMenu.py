@@ -6,44 +6,35 @@ from SPLGenericHelperFunctions import *
 
 #start of method definition
 def menu():
-    print("****** Select an Option ******")
-    print("1. Start GLX Claiming/Staking script")
-    print("2. Print Account Balances ")
-    print("3. Sweep DEC from secondary accounts to main account ")
-    print("4. test method 4")
-    print("5. Exit")
+    options = input(f"""
+    ***** Select an Option *****
+    1. Claim/Stake GLX
+    2. Check Account Balance
+    3. Sweep DEC from alt-accounts to main account
     
-    while True:
-        choice = input("Please enter an option number ")
-        if choice not in ("1", "2", "3","4","5"):
-            print("that is not a valid option")
-        else:
-            break
-    if choice == "1":
-        method1()
-        return False
-    if choice == "2":
-        method2(jsonAccounts)
-        return False
-    if choice == "3":
-        method3()
-        return False
-    if choice == "4":
-        method4()
-        return False
-    if choice == "5":
-        return True
-
-def method1():
+    Selection: 
+    """)
+    print(options)
+    if options.lower() == "1":
+        claimStakeGLX()
+    elif options.lower() == "2":
+        checkAccountBalance()
+    elif option.lower() == "3":
+        sweepDEC()
+    else:
+        print("Invalid Option! Returning to main menu!")
+        menu()
+        
+def claimStakeGLX():
     subprocess.Popen([sys.executable, 'GLXStakingScript.py'], creationflags = subprocess.CREATE_NEW_CONSOLE)
 
-def method2(jsonAccounts):
+def checkAccountBalances(jsonAccounts):
     printAccountBalances(accMainName)
     printAccountBalances(acc2Name)
     printAccountBalances(acc3Name)
     printAccountBalances(acc4Name)
 
-def method3():
+def sweepDEC():
     sweepTokensToMain(accMainName,acc2Name,acc2ActiveKey,tknDEC)
     sweepTokensToMain(accMainName,acc3Name,acc3ActiveKey,tknDEC)
     sweepTokensToMain(accMainName,acc4Name,acc4ActiveKey,tknDEC)
