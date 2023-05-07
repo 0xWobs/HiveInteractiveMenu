@@ -11,6 +11,8 @@ def menu():
     1. Claim/Stake GLX
     2. Check Account Balance
     3. Sweep DEC from alt-accounts to main account
+
+    0. Exit
     
     Selection: 
     """)
@@ -19,11 +21,14 @@ def menu():
         claimStakeGLX()
     elif options.lower() == "2":
         checkAccountBalance()
-    elif option.lower() == "3":
+    elif options.lower() == "3":
         sweepDEC()
+    elif options.lower() == "0":
+        return #exit the program
     else:
         print("Invalid Option! Returning to main menu!")
-        menu()
+    
+    menu() #reset back to menu
         
 def claimStakeGLX():
     subprocess.Popen([sys.executable, 'GLXStakingScript.py'], creationflags = subprocess.CREATE_NEW_CONSOLE)
@@ -39,13 +44,11 @@ def sweepDEC():
     sweepTokensToMain(accMainName,acc3Name,acc3ActiveKey,tknDEC)
     sweepTokensToMain(accMainName,acc4Name,acc4ActiveKey,tknDEC)
 
-def method4():
-    tokenTransfer(accMainName,accMainActiveKey,acc3Name,tknDEC[0],10)
-    
-    #h = Hive(keys=[jsonAccounts['accMainPostingKey'], jsonAccounts['accMainActiveKey']])
-    #a = Account(jsonAccounts['accMainName'], blockchain_instance=h)
-    #print(a.get_account_bandwidth())
-    #a.transfer('wobs', '0.001', 'HIVE', memo= 'memo, Test transaction 2')
+#tokenTransfer(accMainName,accMainActiveKey,acc3Name,tknDEC[0],10)
+#h = Hive(keys=[jsonAccounts['accMainPostingKey'], jsonAccounts['accMainActiveKey']])
+#a = Account(jsonAccounts['accMainName'], blockchain_instance=h)
+#print(a.get_account_bandwidth())
+#a.transfer('wobs', '0.001', 'HIVE', memo= 'memo, Test transaction 2')
 
 def loadAccounts():
     with open('keys.json') as user_file:

@@ -10,11 +10,5 @@
 "acc3ActiveKey": "",
 "acc4Name": "",
 "acc4PostingKey": "",
-"acc4ActiveKey": "",
-"autoGLXClaimTime": "10",
-"autoGLXStakeTime": "10",
-"autoGLXClaimStakedRewards": "True",
-"autoGLXClaimPackRewards": "True",
-"autoGLXClaimNodeRewards": "False",
-"autoGLXClaimSPSStakedRewards": "False"
+"acc4ActiveKey": ""
 }

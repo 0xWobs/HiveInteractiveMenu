@@ -59,6 +59,11 @@ def loadAccounts(): # reads the keys.json file to load the account name and keys
         jsonAccounts = json.load(user_file)
     return jsonAccounts
 
+def loadSettings(): # reads the settings.json file to load the settings
+    with open('settings.json') as user_file:
+        settings = json.load(user_file)
+    return settings
+
 def refreshScreen():
     os.system('cls')
     print("Auto GLX Claim and Stake Active")
@@ -193,12 +198,13 @@ async def main():
 
 sleepTime = 60*1 # 1 minute
 jsonAccounts = loadAccounts()
+settings = loadSettings()
 hiveName = jsonAccounts['accMainName']
 wif = jsonAccounts['accMainPostingKey']
 #claimTime is how often you want script to claim, numbers from keys file in minutes
-claimTime = sleepTime*int(jsonAccounts['autoGLXClaimTime'])
+claimTime = sleepTime*int(settings['autoGLXClaimTime'])
 #stakeTime is how often you want to stake, numbers from keys file in minutes
-stakeTime = sleepTime*int(jsonAccounts['autoGLXStakeTime'])
+stakeTime = sleepTime*int(settings['autoGLXStakeTime'])
 #spsStakeCounterTimer is to limit this action to once every 6 hours if the claim time is less than 6 hours.  This is only available 1x per day anyway.
 spsStakeCounterMax = 0
 if(claimTime/sleepTime > 360):
@@ -209,10 +215,10 @@ else:
 spsStakeCounter = spsStakeCounterMax # set to max initially to make the first pass through activate the loop in the Claim cycle
 
 #bit flags for each claim type from keys file
-autoGLXClaimStakedRewards = jsonAccounts['autoGLXClaimStakedRewards']=='True'
-autoGLXClaimPackRewards = jsonAccounts['autoGLXClaimPackRewards']=='True'
-autoGLXClaimNodeRewards = jsonAccounts['autoGLXClaimNodeRewards']=='True'
-autoGLXClaimSPSStakedRewards = jsonAccounts['autoGLXClaimSPSStakedRewards']=='True'
+autoGLXClaimStakedRewards = settings['autoGLXClaimStakedRewards']=='True'
+autoGLXClaimPackRewards = settings['autoGLXClaimPackRewards']=='True'
+autoGLXClaimNodeRewards = settings['autoGLXClaimNodeRewards']=='True'
+autoGLXClaimSPSStakedRewards = settings['autoGLXClaimSPSStakedRewards']=='True'
 
 isRunning = False #for main loop check
 balance24 = getGLXPStakedBalance() #for 24 hour snapshot to show balance increase

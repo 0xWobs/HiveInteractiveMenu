@@ -1,0 +1,8 @@
+{
+"autoGLXClaimTime": "10",
+"autoGLXStakeTime": "10",
+"autoGLXClaimStakedRewards": "True",
+"autoGLXClaimPackRewards": "True",
+"autoGLXClaimNodeRewards": "False",
+"autoGLXClaimSPSStakedRewards": "False"
+}
