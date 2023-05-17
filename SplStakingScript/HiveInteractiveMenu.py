@@ -10,7 +10,7 @@ def menu():
     ***** Select an Option *****
     1. Claim/Stake GLX
     2. Check Account Balance
-    3. Sweep DEC from alt-accounts to main account
+    3. Sweep DEC from alt-accounts to main account. Leave 100DEC in each alt-account.
 
     0. Exit
     
@@ -20,7 +20,7 @@ def menu():
     if options.lower() == "1":
         claimStakeGLX()
     elif options.lower() == "2":
-        checkAccountBalance()
+        checkAccountBalances()
     elif options.lower() == "3":
         sweepDEC()
     elif options.lower() == "0":
@@ -33,16 +33,16 @@ def menu():
 def claimStakeGLX():
     subprocess.Popen([sys.executable, 'GLXStakingScript.py'], creationflags = subprocess.CREATE_NEW_CONSOLE)
 
-def checkAccountBalances(jsonAccounts):
+def checkAccountBalances():
     printAccountBalances(accMainName)
     printAccountBalances(acc2Name)
     printAccountBalances(acc3Name)
     printAccountBalances(acc4Name)
 
 def sweepDEC():
-    sweepTokensToMain(accMainName,acc2Name,acc2ActiveKey,tknDEC)
-    sweepTokensToMain(accMainName,acc3Name,acc3ActiveKey,tknDEC)
-    sweepTokensToMain(accMainName,acc4Name,acc4ActiveKey,tknDEC)
+    sweepTokensToMain(accMainName,acc2Name,acc2ActiveKey,tknDEC, 100)
+    sweepTokensToMain(accMainName,acc3Name,acc3ActiveKey,tknDEC, 100)
+    sweepTokensToMain(accMainName,acc4Name,acc4ActiveKey,tknDEC, 100)
 
 #tokenTransfer(accMainName,accMainActiveKey,acc3Name,tknDEC[0],10)
 #h = Hive(keys=[jsonAccounts['accMainPostingKey'], jsonAccounts['accMainActiveKey']])

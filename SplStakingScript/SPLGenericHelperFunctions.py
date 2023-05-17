@@ -91,8 +91,8 @@ def tokenTransfer(accFrom, accFromActiveKey, accTo, tokenName, tokenQuantity):
 
 #tokenName expecting the tuple, not just the string
 #this function has output to utilize the tokentransfer function easier
-def sweepTokensToMain(toAccount, fromAccount, fromAccountActiveKey, token):
-    accTokens = getTokenAmount(fromAccount, token[0])
+def sweepTokensToMain(toAccount, fromAccount, fromAccountActiveKey, token, minAmountRemaining):
+    accTokens = getTokenAmount(fromAccount, token[0]) - minAmountRemaining
     if accTokens > 0:
         tokenTransfer(fromAccount,fromAccountActiveKey,toAccount,token[0],accTokens) # THIS WORKS
         print("Initiated transfer of " + str(accTokens) + " " + token[1] + " from account " + fromAccount + " to account " + toAccount)
