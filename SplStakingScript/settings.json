@@ -3,6 +3,6 @@
 "autoGLXStakeTime": "10",
 "autoGLXClaimStakedRewards": "True",
 "autoGLXClaimPackRewards": "True",
-"autoGLXClaimNodeRewards": "False",
+"autoGLXClaimNodeRewards": "True",
 "autoGLXClaimSPSStakedRewards": "False"
 }

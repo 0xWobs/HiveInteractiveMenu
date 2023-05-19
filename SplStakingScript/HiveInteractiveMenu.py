@@ -11,6 +11,7 @@ def menu():
     1. Claim/Stake GLX
     2. Check Account Balance
     3. Sweep DEC from alt-accounts to main account. Leave 100DEC in each alt-account.
+    4. Send SPS and Vouchers and DEC (leave 5000DEC in game) to Hive-Engine wallet
 
     0. Exit
     
@@ -23,6 +24,8 @@ def menu():
         checkAccountBalances()
     elif options.lower() == "3":
         sweepDEC()
+    elif options.lower() == "4":
+        sendTokensToHE()
     elif options.lower() == "0":
         return #exit the program
     else:
@@ -44,6 +47,14 @@ def sweepDEC():
     sweepTokensToMain(accMainName,acc3Name,acc3ActiveKey,tknDEC, 100)
     sweepTokensToMain(accMainName,acc4Name,acc4ActiveKey,tknDEC, 100)
 
+def sendTokensToHE():
+    sendTokensToHiveEngine(accMainName,accMainActiveKey,tknDEC, 5000)
+    sendTokensToHiveEngine(accMainName,accMainActiveKey,tknSPSLiquid, 0)
+    sendTokensToHiveEngine(accMainName,accMainActiveKey,tknVoucher, 0)
+    sendTokensToHiveEngine(accMainName,accMainActiveKey,tknVoucherInGame, 0)
+    
+#tokenTransferToHiveEngineFromInGame(accMainName, accMainActiveKey,tknVoucher[0],1) # this works
+#tokenTransferToInGameFromHiveEngine(accMainName, accMainActiveKey, tknVoucher[0], 2) #this works
 #tokenTransfer(accMainName,accMainActiveKey,acc3Name,tknDEC[0],10)
 #h = Hive(keys=[jsonAccounts['accMainPostingKey'], jsonAccounts['accMainActiveKey']])
 #a = Account(jsonAccounts['accMainName'], blockchain_instance=h)

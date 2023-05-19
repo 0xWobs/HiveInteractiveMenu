@@ -89,15 +89,66 @@ def tokenTransfer(accFrom, accFromActiveKey, accTo, tokenName, tokenQuantity):
     tx.sign()
     tx.broadcast()
 
+# generic function to initiate a token transfer, should work for any token type: ONLY TO HIVE-ENGINE!
+# tokenName here is the string token name, not the token tuple
+def tokenTransferToHiveEngineFromInGame(accFrom, accFromActiveKey, tokenName, tokenQuantity):
+    tx = TransactionBuilder()
+    payload = {"to":"sl-hive","qty":tokenQuantity,"token":tokenName,"memo":accFrom,"n":nString(),"app":"splinterlands/0.7.139"} #will this version need updating???
+    new_json = {
+            "required_auths": [accFrom],
+            "required_posting_auths": [],
+            "id": "sm_token_transfer",
+            "json": payload
+        }
+    tx.appendOps(Custom_json(new_json))
+    tx.appendWif(accFromActiveKey)
+    tx.sign()
+    tx.broadcast()
+
+#generic function to initiate a token transfer from Hive Engine to In Game !
+# tokenName here is the string token name, not the token tuple
+def tokenTransferToInGameFromHiveEngine(accFrom, accFromActiveKey, tokenName, tokenQuantity):
+    tx = TransactionBuilder()
+    payload2 = {"symbol":tokenName,"to":"steemmonsters","quantity":str(tokenQuantity),"memo":""}
+    payload = {"contractName":"tokens","contractAction":"transfer","contractPayload":payload2} #will this version need updating???
+    new_json = {
+            "required_auths": [accFrom],
+            "required_posting_auths": [],
+            "id": "ssc-mainnet-hive",
+            "json": payload
+        }
+    tx.appendOps(Custom_json(new_json))
+    tx.appendWif(accFromActiveKey)
+    tx.sign()
+    tx.broadcast()
+
+#send tokens (DEC, SPS, VOUCHER) to Hive Engine
+#may work with other token types also, not sure
+# min amount remaining is the floor amount to keep in the account
+# Token is the TUPLE
+def sendTokensToHiveEngine(accFrom, accFromActiveKey, tokenTuple, minAmountRemaining):
+    accTokensTotal = getTokenAmount(accFrom, tokenTuple[0])
+    accTokens = accTokensTotal - minAmountRemaining
+    if accTokens > 0:
+        tokenTransferToHiveEngineFromInGame(accFrom,accFromActiveKey,tokenTuple[0],accTokens) # THIS WORKS
+        print("Initiated transfer of " + str(accTokens) + " " + tokenTuple[1] + " from account " + accFrom + " to Hive Engine.")
+    else:
+        print("No transfer initiated.  " + accFrom + " has " + str(accTokensTotal) + " " + tokenTuple[1] + " tokens which is at or below the minimum requested of " + str(minAmountRemaining) + ".")
+        #print("No " + tokenTuple[1] + " found in account " + accFrom + ". No transfer initiated.")
+ 
+
 #tokenName expecting the tuple, not just the string
 #this function has output to utilize the tokentransfer function easier
 def sweepTokensToMain(toAccount, fromAccount, fromAccountActiveKey, token, minAmountRemaining):
-    accTokens = getTokenAmount(fromAccount, token[0]) - minAmountRemaining
+    accTokensTotal = getTokenAmount(fromAccount, token[0])
+    accTokens = accTokensTotal - minAmountRemaining
     if accTokens > 0:
         tokenTransfer(fromAccount,fromAccountActiveKey,toAccount,token[0],accTokens) # THIS WORKS
         print("Initiated transfer of " + str(accTokens) + " " + token[1] + " from account " + fromAccount + " to account " + toAccount)
     else:
-        print("No " + token[1] + " found in account " + fromAccount + ". No transfer initiated.")
+        print("No transfer initiated.  " + fromAccount + " has " + str(accTokensTotal) + " " + token[1] + " tokens which is at or below the minimum requested of " + str(minAmountRemaining) + ".")
+        #print("No " + token[1] + " found in account " + fromAccount + ". No transfer initiated.")
+        
 
 
 # method to return the "n" string argument
