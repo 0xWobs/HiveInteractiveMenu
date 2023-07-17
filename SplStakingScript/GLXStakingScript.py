@@ -154,7 +154,7 @@ async def stakeNow():
         canStake = getGLXLiqduidBalance()
         staked24 = staked24 + canStake
         tx = TransactionBuilder()
-        payload = {"token":"GLX","qty":canStake, "memo":"auto STAKE glx"}
+        payload = {"token":"GLX","qty":round(canStake,3), "memo":"auto STAKE glx"}
         new_json = {
               "required_auths": [],
               "required_posting_auths": [hiveName],

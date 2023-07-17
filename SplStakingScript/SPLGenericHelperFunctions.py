@@ -41,7 +41,7 @@ def getTokenAmount(accName, tokenName):
         jsonData = json.loads(r.text)
         for item in jsonData:
             if item["token"]==tokenName:
-                return item["balance"]
+                return round(item["balance"],3)
         print("could not find token: " + tokenName + " from account: " + accName)
         return -1
     except Exception as e:
@@ -65,7 +65,7 @@ def printAccountBalancesTokenList(accName, tokenList):
         for token in tokenList:
             for item in jsonData:
                 if item["token"]==token[0]:
-                    output = output + "Account " + accName + " has " + str(item["balance"]) + " " + token[1] + "\n"
+                    output = output + "Account " + accName + " has " + str(round(item["balance"],3)) + " " + token[1] + "\n"
                     break # end the loop
         print(output)
     except Exception as e:
@@ -77,7 +77,7 @@ def printAccountBalancesTokenList(accName, tokenList):
 # generic function to initiate a token transfer, should work for any token type
 def tokenTransfer(accFrom, accFromActiveKey, accTo, tokenName, tokenQuantity):
     tx = TransactionBuilder()
-    payload = {"to":accTo,"qty":tokenQuantity,"token":tokenName,"n":nString(),"app":"splinterlands/0.7.139"} #will this version need updating???
+    payload = {"to":accTo,"qty":round(tokenQuantity,3),"token":tokenName,"n":nString(),"app":"splinterlands/0.7.139"} #will this version need updating???
     new_json = {
             "required_auths": [accFrom],
             "required_posting_auths": [],
@@ -93,7 +93,7 @@ def tokenTransfer(accFrom, accFromActiveKey, accTo, tokenName, tokenQuantity):
 # tokenName here is the string token name, not the token tuple
 def tokenTransferToHiveEngineFromInGame(accFrom, accFromActiveKey, tokenName, tokenQuantity):
     tx = TransactionBuilder()
-    payload = {"to":"sl-hive","qty":tokenQuantity,"token":tokenName,"memo":accFrom,"n":nString(),"app":"splinterlands/0.7.139"} #will this version need updating???
+    payload = {"to":"sl-hive","qty":round(tokenQuantity,3),"token":tokenName,"memo":accFrom,"n":nString(),"app":"splinterlands/0.7.139"} #will this version need updating???
     new_json = {
             "required_auths": [accFrom],
             "required_posting_auths": [],
@@ -109,7 +109,7 @@ def tokenTransferToHiveEngineFromInGame(accFrom, accFromActiveKey, tokenName, to
 # tokenName here is the string token name, not the token tuple
 def tokenTransferToInGameFromHiveEngine(accFrom, accFromActiveKey, tokenName, tokenQuantity):
     tx = TransactionBuilder()
-    payload2 = {"symbol":tokenName,"to":"steemmonsters","quantity":str(tokenQuantity),"memo":""}
+    payload2 = {"symbol":tokenName,"to":"steemmonsters","quantity":str(round(tokenQuantity,3)),"memo":""}
     payload = {"contractName":"tokens","contractAction":"transfer","contractPayload":payload2} #will this version need updating???
     new_json = {
             "required_auths": [accFrom],
